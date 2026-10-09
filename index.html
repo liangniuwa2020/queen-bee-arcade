@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>经典街机 8线老虎机 - 女王蜂 (QUEEN BEE / SUBSINO)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="arcade-wrapper">
+        <!-- 街机顶部荧光招牌与状态信息 -->
+        <header class="marquee-bar">
+            <div class="subsino-logo">SUBSINO</div>
+            <div class="game-logo">
+                <span class="queen-badge">👑🐝</span>
+                <span class="title-txt">QUEEN BEE</span>
+                <span class="sub-txt">八线街机老虎机 (8-LINER)</span>
+            </div>
+            <div class="top-indicators">
+                <span class="fever-lamp" id="lampFever">⚡ FEVER</span>
+                <span class="double-lamp" id="lampDouble">🎲 DOUBLE-UP</span>
+            </div>
+        </header>
+
+        <!-- 游戏主舞台区 (左侧倍率表/Fever表 + 9格滚轮与8条线 + 右侧功能指示) -->
+        <main class="game-board">
+            <!-- 左侧边栏：品牌LOGO、倍率参考与 FEVER 说明 -->
+            <aside class="left-sidebar">
+                <div class="subsino-badge">
+                    <span class="emboss-logo">SUBSINO</span>
+                    <div class="bee-portrait">
+                        <!-- 女王蜂肖像 -->
+                        <div class="bee-art">👑🐝</div>
+                    </div>
+                </div>
+
+                <!-- 真实原版街机双列赔率展示表 -->
+                <div class="paytable-mini">
+                    <div class="mini-header">👑 原厂赔率总表 (PAYTABLE)</div>
+                    <div class="paytable-grid-table">
+                        <div class="grid-col">
+                            <div class="p-cell p-gold"><span>ALL 👑</span><strong>X1000</strong></div>
+                            <div class="p-cell"><span>ALL 💠</span><strong>X500</strong></div>
+                            <div class="p-cell"><span>ALL 🌸</span><strong>X400</strong></div>
+                            <div class="p-cell"><span>ALL 🐞</span><strong>X400</strong></div>
+                            <div class="p-cell"><span>ALL 🌺</span><strong>X300</strong></div>
+                            <div class="p-cell"><span>ALL 🦗</span><strong>X300</strong></div>
+                            <div class="p-cell"><span>ALL 🐦</span><strong>X200</strong></div>
+                            <div class="p-cell"><span>ALL 🕷️</span><strong>X100</strong></div>
+                            <div class="p-cell"><span>ALL 🦋</span><strong>X50</strong></div>
+                        </div>
+                        <div class="grid-col">
+                            <div class="p-cell p-gold"><span>8 X 👑</span><strong>X400</strong></div>
+                            <div class="p-cell p-gold"><span>7 X 👑</span><strong>X200</strong></div>
+                            <div class="p-cell p-gold"><span>6 X 👑</span><strong>X100</strong></div>
+                            <div class="p-cell"><span>5 X 👑</span><strong>X50</strong></div>
+                            <div class="p-cell"><span>4 X 👑</span><strong>X20</strong></div>
+                            <div class="p-cell"><span>3 X 👑</span><strong>X5</strong></div>
+                            <div class="p-cell"><span>2 X 👑</span><strong>X2</strong></div>
+                            <div class="p-cell p-special"><span>ALL 昆虫</span><strong>X15</strong></div>
+                            <div class="p-cell p-special"><span>ALL 花朵</span><strong>X50</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 核心区：3x3 滚轮格阵列 + 8条线连线指示灯 -->
+            <section class="reels-viewport">
+                <!-- 8条连线高亮连线 SVG 覆盖层 -->
+                <svg class="lines-canvas" id="linesCanvas" viewBox="0 0 640 480">
+                    <!-- 线1: 顶横 -->
+                    <line id="line-1" x1="40" y1="80" x2="600" y2="80" class="payline" />
+                    <!-- 线2: 中横 -->
+                    <line id="line-2" x1="40" y1="240" x2="600" y2="240" class="payline" />
+                    <!-- 线3: 底横 -->
+                    <line id="line-3" x1="40" y1="400" x2="600" y2="400" class="payline" />
+                    <!-- 线4: 左竖 -->
+                    <line id="line-4" x1="130" y1="30" x2="130" y2="450" class="payline" />
+                    <!-- 线5: 中竖 -->
+                    <line id="line-5" x1="320" y1="30" x2="320" y2="450" class="payline" />
+                    <!-- 线6: 右竖 -->
+                    <line id="line-6" x1="510" y1="30" x2="510" y2="450" class="payline" />
+                    <!-- 线7: 左上到右下斜线 -->
+                    <line id="line-7" x1="60" y1="40" x2="580" y2="440" class="payline" />
+                    <!-- 线8: 左下到右上斜线 -->
+                    <line id="line-8" x1="60" y1="440" x2="580" y2="40" class="payline" />
+                </svg>
+
+                <!-- 8条线的押分显示徽章 (如原图外围的 [30] 红色数值标签) -->
+                <!-- 顶部 3 个列线指示灯 (Line 4, 5, 6) -->
+                <div class="line-badge col-badge col-1" id="badge-col-0"><span class="badge-val">0</span></div>
+                <div class="line-badge col-badge col-2" id="badge-col-1"><span class="badge-val">0</span></div>
+                <div class="line-badge col-badge col-3" id="badge-col-2"><span class="badge-val">0</span></div>
+
+                <!-- 左侧 3 个行线及斜线指示灯 -->
+                <div class="line-badge row-badge row-diag-1" id="badge-diag-0"><span class="badge-val">0</span></div>
+                <div class="line-badge row-badge row-1" id="badge-row-0"><span class="badge-val">0</span></div>
+                <div class="line-badge row-badge row-2" id="badge-row-1"><span class="badge-val">0</span></div>
+                <div class="line-badge row-badge row-3" id="badge-row-2"><span class="badge-val">0</span></div>
+                <div class="line-badge row-badge row-diag-2" id="badge-diag-1"><span class="badge-val">0</span></div>
+
+                <!-- 3x3 实体机箱九宫格滚轮 -->
+                <div class="reels-grid" id="reelsGrid">
+                    <!-- 9个轮子依次排列 (行优先) -->
+                    <!-- 第0行 -->
+                    <div class="reel-cell" id="cell-0-0"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-0-1"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-0-2"><div class="symbol-inner"></div></div>
+                    <!-- 第1行 -->
+                    <div class="reel-cell" id="cell-1-0"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-1-1"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-1-2"><div class="symbol-inner"></div></div>
+                    <!-- 第2行 -->
+                    <div class="reel-cell" id="cell-2-0"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-2-1"><div class="symbol-inner"></div></div>
+                    <div class="reel-cell" id="cell-2-2"><div class="symbol-inner"></div></div>
+                </div>
+
+                <!-- 钻石跑马灯奖励关卡 (DIAMOND ROULETTE BONUS) 弹窗层 -->
+                <div class="roulette-overlay" id="rouletteOverlay" style="display: none;">
+                    <div class="roulette-cabinet">
+                        <!-- 顶部轮盘状态栏 -->
+                        <div class="r-top-bar">
+                            <div class="r-win-box">
+                                <span class="r-label">WIN</span>
+                                <span class="r-val" id="rWinVal">0</span>
+                            </div>
+                            <div class="r-title-box">
+                                <span class="r-title-txt">ROULETTE</span>
+                                <span class="r-round-mult" id="rRoundMult">X 1</span>
+                            </div>
+                        </div>
+
+                        <!-- 跑马灯外圈 + 4个中间轮子 -->
+                        <div class="roulette-stage">
+                            <!-- 24格跑马灯轨道 (周圈围绕) -->
+                            <div class="track-light-ring" id="trackRing">
+                                <!-- 由 JS 渲染 24 个格子，含 4 个角落 EXIT 和各昆虫/花朵/蝴蝶/大树 -->
+                            </div>
+
+                            <!-- 中间 4 个旋转奖池转轮 (4 REELS) -->
+                            <div class="roulette-center-reels">
+                                <div class="r-reel-box" id="rReel-0">
+                                    <div class="r-reel-symbol" id="rReelSym-0">🕷️</div>
+                                    <div class="r-reel-prize" id="rReelPrize-0">720</div>
+                                </div>
+                                <div class="r-reel-box" id="rReel-1">
+                                    <div class="r-reel-symbol" id="rReelSym-1">📦</div>
+                                    <div class="r-reel-prize" id="rReelPrize-1">2880</div>
+                                </div>
+                                <div class="r-reel-box" id="rReel-2">
+                                    <div class="r-reel-symbol" id="rReelSym-2">👑</div>
+                                    <div class="r-reel-prize" id="rReelPrize-2">4800</div>
+                                </div>
+                                <div class="r-reel-box" id="rReel-3">
+                                    <div class="r-reel-symbol" id="rReelSym-3">🦗</div>
+                                    <div class="r-reel-prize" id="rReelPrize-3">1200</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 跑马灯底部仪表盘与控制按键 -->
+                        <div class="r-bottom-bar">
+                            <div class="r-meter-box">
+                                <span class="r-label">CREDIT</span>
+                                <span class="r-val" id="rCreditVal">0</span>
+                            </div>
+                            <div class="r-msg-box" id="rStatusMsg">PRESS START TO SPIN ROULETTE</div>
+                            <div class="r-meter-box">
+                                <span class="r-label">BET</span>
+                                <span class="r-val" id="rBetVal">240</span>
+                            </div>
+                            <button class="r-btn-stop" id="btnRouletteAction">
+                                <span>按键停止<br><small>STOP / GO</small></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 弹窗式特效/比倍(DOUBLE-UP)覆盖层 -->
+                <div class="double-overlay" id="doubleOverlay" style="display: none;">
+                    <div class="double-panel">
+                        <div class="double-title">🎲 比倍猜大小 (DOUBLE UP) 🎲</div>
+                        <div class="double-dice-box">
+                            <div class="dice-digit" id="diceDigit">?</div>
+                        </div>
+                        <div class="double-prompt" id="doublePrompt">请猜点数：【小 1~6】 或 【大 8~13】</div>
+                        <div class="double-pot">
+                            <span>当前奖金: <strong id="curPotVal">0</strong></span>
+                            <span>猜中可得: <strong id="nextPotVal">0</strong></span>
+                        </div>
+                        <div class="double-buttons">
+                            <button class="d-btn d-small" id="btnDoubleSmall">【 小 】 1 ~ 6</button>
+                            <button class="d-btn d-seven" id="btnDoubleSeven">【 7 】 (x6倍)</button>
+                            <button class="d-btn d-big" id="btnDoubleBig">【 大 】 8 ~ 13</button>
+                            <button class="d-btn d-take" id="btnDoubleTake">💰 收分退出</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部原版风格荧光数码显示条 (CREDIT / WIN / STATUS / BET) -->
+        <section class="display-banner">
+            <div class="vfd-box vfd-credit">
+                <span class="vfd-label">CREDIT</span>
+                <span class="vfd-digits" id="txtCredit">1000</span>
+            </div>
+            <div class="vfd-box vfd-win">
+                <span class="vfd-label">WIN</span>
+                <span class="vfd-digits" id="txtWin">0</span>
+            </div>
+            <div class="vfd-box vfd-status">
+                <span class="vfd-msg" id="txtStatusMsg">PRESS BET TO START</span>
+            </div>
+            <div class="vfd-box vfd-bet">
+                <span class="vfd-label">BET</span>
+                <span class="vfd-digits" id="txtTotalBet">0</span>
+            </div>
+        </section>
+
+        <!-- 街机物理按键操作台 -->
+        <footer class="arcade-console">
+            <div class="btn-group">
+                <button class="console-btn btn-coin" id="btnCoin">
+                    <span class="btn-name">投 币</span>
+                    <span class="btn-sub">COIN (+100)</span>
+                </button>
+                <button class="console-btn btn-bet-1" id="btnBet1">
+                    <span class="btn-name">单押 8线</span>
+                    <span class="btn-sub">BET LINE (+8)</span>
+                </button>
+                <button class="console-btn btn-max-bet" id="btnMaxBet">
+                    <span class="btn-name">全满押</span>
+                    <span class="btn-sub">MAX BET (240)</span>
+                </button>
+            </div>
+
+            <div class="btn-group aux-group">
+                <button class="aux-btn" id="btnToggleSound">🔊 音效: 开</button>
+                <button class="aux-btn" id="btnAutoSpin">⚡ 自动旋转: 关</button>
+                <button class="aux-btn btn-bonus-trigger" id="btnTriggerBonus">🎯 体验跑马灯奖励</button>
+                <button class="aux-btn" id="btnViewPaytable">📖 详细规则</button>
+            </div>
+
+            <div class="btn-group action-group">
+                <button class="console-btn btn-take" id="btnTakeScore" disabled>
+                    <span class="btn-name">收 分</span>
+                    <span class="btn-sub">TAKE SCORE</span>
+                </button>
+                <button class="console-btn btn-double" id="btnEnterDouble" disabled>
+                    <span class="btn-name">猜大小</span>
+                    <span class="btn-sub">DOUBLE UP</span>
+                </button>
+                <button class="console-btn btn-spin" id="btnStartSpin">
+                    <span class="btn-name">开 始</span>
+                    <span class="btn-sub">START SPIN</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 规则说明模态框 -->
+    <div class="rules-modal" id="rulesModal" style="display: none;">
+        <div class="rules-box">
+            <div class="rules-header">
+                <h3>👑 女王蜂 (QUEEN BEE) 8-LINER 规则说明</h3>
+                <button class="rules-close" id="btnCloseRules">✕</button>
+            </div>
+            <div class="rules-content">
+                <h4>🎯 经典八线玩法 (8-LINER)</h4>
+                <p>九宫格 3x3 滚轮布局，激活 8 条线路（3横、3竖、2斜）。每条线可押 1~30 分，全满押为 240 分！</p>
+                <h4>👑 全盘特别大奖 (ALL AWARDS)</h4>
+                <ul>
+                    <li><strong>ALL 👑 皇冠 (全盘9格)</strong>：<strong>X1000</strong></li>
+                    <li><strong>ALL 💠 浅蓝花</strong>：<strong>X500</strong></li>
+                    <li><strong>ALL 🌸 粉红花</strong> / <strong>ALL 🐞 绿金龟</strong>：<strong>X400</strong></li>
+                    <li><strong>ALL 🌺 金黄花</strong> / <strong>ALL 🦗 绿蚱蜢</strong>：<strong>X300</strong></li>
+                    <li><strong>ALL 🐦 小粉鸟</strong>：<strong>X200</strong></li>
+                    <li><strong>ALL 🕷️ 蜘蛛</strong>：<strong>X100</strong> / <strong>ALL 🦋 蜻蜓</strong>：<strong>X50</strong></li>
+                    <li><strong>ALL ANY 花朵</strong> (全盘均为花朵)：<strong>X50</strong></li>
+                    <li><strong>ALL INSECT 昆虫</strong> (全盘均为昆虫)：<strong>X15</strong></li>
+                </ul>
+                <h4>👑 散牌皇冠奖 (SCATTER CROWNS)</h4>
+                <p>无论出现在盘面任何位置，只要出现皇冠即可获得倍率：</p>
+                <p><strong>8个皇冠: X400</strong> | <strong>7个: X200</strong> | <strong>6个: X100</strong> | <strong>5个: X50</strong> | <strong>4个: X20</strong> | <strong>3个: X5</strong> | <strong>2个: X2</strong></p>
+                <h4>🐝 百搭女王蜂 (QUEEN BEE WILD)</h4>
+                <p>女王蜂为万能百搭符号，可替代任何图案组成单线与全盘组合，并可与 <strong>x2 乘数</strong> 叠加翻倍爆发！</p>
+                <h4>🎲 猜大小比倍 (DOUBLE UP)</h4>
+                <p>中奖后可进入比倍，1~6为小，8~13为大，猜中奖金翻倍！猜中特码 7 更有 6 倍高额回馈！</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

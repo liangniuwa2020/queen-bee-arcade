@@ -1,0 +1,1107 @@
+/* =========================================================
+   QUEEN BEE (女王蜂) - 街机 8-LINER 复古街机主题风格样式
+   高度还原原版街机湖蓝/青绿浮雕机箱与CRT显像管质感
+   ========================================================= */
+
+:root {
+    --cabinet-bg: #2ca5a9;
+    --cabinet-shadow: #196f73;
+    --cabinet-light: #52cbcf;
+    --cabinet-border: #135558;
+    --gold-text: #ffe066;
+    --crt-bg: #091a1e;
+    --vfd-green: #33ff99;
+    --vfd-red: #ff3344;
+    --vfd-yellow: #ffea00;
+    --reel-bg: #ffffff;
+    --line-active: #ff0055;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    font-family: "Impact", "Arial Black", "Microsoft YaHei", "Heiti SC", sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, #1b2838 0%, #080c10 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* 街机机台外框包装 */
+.arcade-wrapper {
+    width: 100%;
+    max-width: 960px;
+    background: linear-gradient(135deg, var(--cabinet-light) 0%, var(--cabinet-bg) 40%, var(--cabinet-shadow) 100%);
+    border: 8px solid var(--cabinet-border);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 3px 6px rgba(255, 255, 255, 0.4), inset 0 -6px 12px rgba(0, 0, 0, 0.5);
+    padding: 14px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+/* 顶部跑马灯与状态栏 */
+.marquee-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #104144;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 3px solid #3ebbc0;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.subsino-logo {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #e0f9fc;
+    text-shadow: 0 0 10px #00e5ff, 2px 2px 0 #07474c;
+    font-style: italic;
+}
+
+.game-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.queen-badge {
+    font-size: 26px;
+    filter: drop-shadow(0 0 6px #ffea00);
+}
+
+.title-txt {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fffb8f;
+    text-shadow: 0 0 12px #ffbb00, 2px 2px 0 #8c4c00;
+    letter-spacing: 2px;
+}
+
+.sub-txt {
+    font-size: 13px;
+    color: #9fe2e5;
+    background: #08292b;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #237478;
+}
+
+.top-indicators {
+    display: flex;
+    gap: 10px;
+}
+
+.fever-lamp, .double-lamp {
+    font-size: 13px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #143236;
+    color: #55797d;
+    border: 2px solid #285559;
+    transition: all 0.2s ease;
+}
+
+.fever-lamp.active {
+    background: #ffaa00;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 16px #ffaa00;
+    animation: flashLamp 0.4s infinite alternate;
+}
+
+.double-lamp.active {
+    background: #00e5ff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 16px #00e5ff;
+    animation: flashLamp 0.5s infinite alternate;
+}
+
+@keyframes flashLamp {
+    from { opacity: 0.7; }
+    to { opacity: 1; transform: scale(1.05); }
+}
+
+/* 核心游戏盘面区 (左侧倍率栏 + 3x3滚轮中心) */
+.game-board {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 14px;
+    background: #238b90;
+    border: 5px solid #14595c;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 左侧栏 */
+.left-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subsino-badge {
+    background: linear-gradient(to bottom, #1d6e72, #10484b);
+    border: 3px solid #44bdc2;
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.emboss-logo {
+    font-size: 20px;
+    color: #a7f4f9;
+    text-shadow: 1px 1px 0 #083032, -1px -1px 0 #57d4db;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.bee-portrait {
+    background: radial-gradient(circle, #ffeaa7 0%, #fab1a0 60%, #e17055 100%);
+    border: 2px solid #fff;
+    border-radius: 6px;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bee-art {
+    font-size: 38px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    animation: beeFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes beeFloat {
+    0% { transform: translateY(-2px) rotate(-3deg); }
+    100% { transform: translateY(3px) rotate(3deg); }
+}
+
+/* 原版双列街机赔率表 (截图实机样式) */
+.paytable-mini {
+    background: #092c2f;
+    border: 2px solid #3ebbc0;
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.mini-header {
+    text-align: center;
+    font-size: 11px;
+    color: #ffd000;
+    font-weight: 900;
+    border-bottom: 2px solid #1a585c;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.paytable-grid-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    background: #041416;
+    border: 1px solid #1a585c;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.grid-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.p-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0a2528;
+    border: 1px solid #14494d;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.p-cell span {
+    color: #e5ffff;
+    font-weight: 800;
+}
+
+.p-cell strong {
+    color: #00f0ff;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    text-shadow: 0 0 4px #00f0ff;
+}
+
+.p-cell.p-gold span {
+    color: #ffe066;
+}
+
+.p-cell.p-gold strong {
+    color: #ffea00;
+    text-shadow: 0 0 6px #ffea00;
+}
+
+.p-cell.p-special {
+    background: #143538;
+}
+
+.p-cell.p-special strong {
+    color: #ff5577;
+    text-shadow: 0 0 6px #ff5577;
+}
+
+/* 核心滚轮区与8条线展示 */
+.reels-viewport {
+    position: relative;
+    background: #0f3d40;
+    border: 6px solid #124d51;
+    border-radius: 12px;
+    padding: 38px 24px 24px 38px; /* 留出边框位置给押分红框徽章 */
+    box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 440px;
+}
+
+/* 8条赔率连线 SVG 画布 */
+.lines-canvas {
+    position: absolute;
+    top: 38px;
+    left: 38px;
+    width: calc(100% - 62px);
+    height: calc(100% - 62px);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.payline {
+    stroke: transparent;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: all 0.3s ease;
+}
+
+.payline.active {
+    stroke: #ff0055;
+    filter: drop-shadow(0 0 8px #ff0055) drop-shadow(0 0 16px #ffff00);
+    animation: linePulse 0.5s infinite alternate;
+}
+
+@keyframes linePulse {
+    from { opacity: 0.7; stroke-width: 5; }
+    to { opacity: 1; stroke-width: 8; stroke: #ffea00; }
+}
+
+/* 8条线路的经典红色数值框徽章（如原机台外围标注的 [30]） */
+.line-badge {
+    position: absolute;
+    background: linear-gradient(to bottom, #d63031, #800000);
+    border: 2px solid #ffcccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 900;
+    color: #ffffff;
+    z-index: 8;
+    transition: all 0.2s ease;
+}
+
+.line-badge.active {
+    background: linear-gradient(to bottom, #ffea00, #ff8800);
+    color: #000;
+    border-color: #ffffff;
+    box-shadow: 0 0 12px #ffcc00;
+    transform: scale(1.1);
+}
+
+/* 列徽章 (顶端) */
+.col-badge {
+    top: 6px;
+    width: 38px;
+    height: 24px;
+}
+.col-1 { left: calc(38px + 16.6% - 19px); }
+.col-2 { left: calc(38px + 50.0% - 19px); }
+.col-3 { left: calc(38px + 83.3% - 19px); }
+
+/* 行与对角线徽章 (左侧) */
+.row-badge {
+    left: 4px;
+    width: 30px;
+    height: 28px;
+}
+.row-diag-1 { top: 38px; }
+.row-1 { top: calc(38px + 16.6% - 14px); }
+.row-2 { top: calc(38px + 50.0% - 14px); }
+.row-3 { top: calc(38px + 83.3% - 14px); }
+.row-diag-2 { bottom: 10px; }
+
+/* 3x3 滚轮格布局 */
+.reels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+/* 单个滚轮格子：还原白色弧面转轮质感与经典红边框 */
+.reel-cell {
+    background: radial-gradient(ellipse at center, #ffffff 60%, #e2e8f0 100%);
+    border: 4px solid #b8c9cc;
+    border-radius: 12px;
+    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.25), inset 0 -8px 12px rgba(0, 0, 0, 0.25), 0 6px 12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+/* 中奖格子特殊高亮闪烁红框 */
+.reel-cell.win-highlight {
+    border: 5px solid #ff1a40 !important;
+    box-shadow: 0 0 20px #ff2b55, inset 0 0 15px rgba(255, 30, 70, 0.6) !important;
+    animation: winCellPulse 0.4s infinite alternate;
+}
+
+@keyframes winCellPulse {
+    from { transform: scale(0.98); }
+    to { transform: scale(1.03); }
+}
+
+.symbol-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 48px;
+    position: relative;
+    transition: transform 0.15s ease-out;
+}
+
+.symbol-name {
+    font-size: 11px;
+    color: #1e3a3d;
+    font-weight: 800;
+    margin-top: 2px;
+}
+
+.symbol-inner.blur {
+    filter: blur(4px);
+    transform: scaleY(1.4);
+}
+
+.wild-marker {
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    background: #ff1a40;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid #ffe600;
+}
+
+.multiplier-tag {
+    position: absolute;
+    bottom: 2px;
+    left: 4px;
+    background: #0066cc;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+}
+
+/* =========================================================
+   钻石跑马灯奖励关卡 (DIAMOND ROULETTE BONUS)
+   高度还原截图中 24 格绿色外圈 + 4 个 EXIT + 中间 4 个旋转奖池转轮
+   ========================================================= */
+.roulette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #020b0c;
+    border-radius: 12px;
+    z-index: 120;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+    border: 4px solid #33cc99;
+    box-shadow: 0 0 30px rgba(51, 204, 153, 0.4);
+}
+
+.roulette-cabinet {
+    width: 100%;
+    height: 100%;
+    background: #06191c;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+/* 顶部 WIN / ROULETTE X 1 计分栏 */
+.r-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 14px;
+    background: #0a2529;
+    border: 2px solid #287a80;
+    border-radius: 6px;
+}
+
+.r-win-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.r-label {
+    font-size: 20px;
+    font-weight: 900;
+    color: #3388ff;
+    text-shadow: 0 0 6px #0066ff, 1px 1px 0 #fff;
+    letter-spacing: 2px;
+}
+
+.r-val {
+    font-family: "Courier New", monospace;
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffea00;
+    text-shadow: 0 0 8px #ffea00;
+}
+
+.r-title-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.r-title-txt {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ff3344;
+    text-shadow: 0 0 10px #ff3344, 2px 2px 0 #880000;
+    letter-spacing: 3px;
+}
+
+.r-round-mult {
+    font-size: 22px;
+    font-weight: 900;
+    color: #ffea00;
+    text-shadow: 0 0 8px #ffea00;
+}
+
+/* 跑马灯主舞台 (24格环形跑灯 + 中间4个转轮) */
+.roulette-stage {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    background: #020c0e;
+    border: 3px solid #1f6469;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 24格跑马灯轨道 (8列 x 6行 外圈跑道) */
+.track-light-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    padding: 3px;
+    gap: 3px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* 跑马灯每个小方格 */
+.track-cell {
+    background: #003311;
+    border: 2px solid #006622;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+    position: relative;
+    transition: all 0.08s ease;
+}
+
+/* 4个角落的 EXIT 格子 (原图红色EXIT标识) */
+.track-cell.cell-exit {
+    background: #4a0d17;
+    border-color: #8c192d;
+    color: #ffcc00;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px #ff0000;
+}
+
+/* 跑灯激活高亮：耀眼黄色边框与高亮背景 (原图黄色高光框) */
+.track-cell.light-active {
+    background: #ffea00 !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 0 16px #ffea00, inset 0 0 10px #ffffff !important;
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+.track-cell.light-active.cell-exit {
+    background: #ff2255 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 20px #ff0055, inset 0 0 10px #ffffff !important;
+}
+
+/* 中间 4 个旋转奖池大滚轮 (4 REELS) */
+.roulette-center-reels {
+    position: absolute;
+    top: calc(100% / 6 + 4px);
+    left: calc(100% / 8 + 4px);
+    width: calc(100% * 6 / 8 - 8px);
+    height: calc(100% * 4 / 6 - 8px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 6px;
+    background: #0c3033;
+    border: 3px solid #33cc99;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.r-reel-box {
+    background: #ffffff;
+    border: 3px solid #205c61;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 2px 2px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.r-reel-box.win-pulse {
+    border: 4px solid #ff0055 !important;
+    box-shadow: 0 0 20px #ff0055 !important;
+    animation: winCellPulse 0.3s infinite alternate;
+}
+
+.r-reel-symbol {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    transition: transform 0.1s ease;
+}
+
+.r-reel-symbol.blur {
+    filter: blur(4px);
+    transform: scaleY(1.4);
+}
+
+.r-reel-prize {
+    width: 100%;
+    background: #000000;
+    color: #00f0ff;
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    font-weight: 900;
+    text-align: center;
+    padding: 2px 0;
+    border-top: 2px solid #33cc99;
+    text-shadow: 0 0 6px #00f0ff;
+}
+
+/* 跑马灯底部仪表盘与控制按键 */
+.r-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    background: #0a2529;
+    border: 2px solid #287a80;
+    border-radius: 6px;
+}
+
+.r-meter-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.r-msg-box {
+    color: #00ffaa;
+    font-size: 14px;
+    font-weight: 900;
+    text-shadow: 0 0 6px #00ffaa;
+    letter-spacing: 1px;
+}
+
+.r-btn-stop {
+    background: linear-gradient(to bottom, #ff3344, #b30018);
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    padding: 6px 18px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #66000e, 0 6px 12px rgba(255, 51, 68, 0.4);
+    transition: transform 0.1s;
+}
+
+.r-btn-stop:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #66000e;
+}
+
+.btn-bonus-trigger {
+    background: linear-gradient(to bottom, #ff00aa, #880055) !important;
+    border-color: #ff99dd !important;
+    color: #ffffff !important;
+}
+
+/* 经典比倍猜大小(DOUBLE-UP)浮层 */
+.double-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 18, 20, 0.92);
+    border-radius: 12px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.double-panel {
+    background: linear-gradient(135deg, #154e52, #0b2d30);
+    border: 4px solid #00f0ff;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), inset 0 2px 8px rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    max-width: 440px;
+    width: 90%;
+}
+
+.double-title {
+    font-size: 20px;
+    color: #ffea00;
+    text-shadow: 0 0 8px rgba(255, 234, 0, 0.8);
+    margin-bottom: 12px;
+}
+
+.double-dice-box {
+    margin: 12px auto;
+    width: 90px;
+    height: 90px;
+    background: #fff;
+    border: 5px solid #d63031;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dice-digit {
+    font-size: 46px;
+    color: #d63031;
+    font-weight: 900;
+}
+
+.double-prompt {
+    font-size: 14px;
+    color: #c9f7fa;
+    margin-bottom: 14px;
+}
+
+.double-pot {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.double-pot strong {
+    color: #ffea00;
+    font-size: 18px;
+}
+
+.double-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.d-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    transition: transform 0.1s, filter 0.2s;
+}
+
+.d-btn:active {
+    transform: translateY(2px);
+}
+
+.d-small {
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    color: #fff;
+}
+
+.d-big {
+    background: linear-gradient(to bottom, #e74c3c, #c0392b);
+    color: #fff;
+}
+
+.d-seven {
+    background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+    color: #fff;
+}
+
+.d-take {
+    background: linear-gradient(to bottom, #2ecc71, #27ae60);
+    color: #fff;
+    grid-column: span 2;
+}
+
+/* 经典荧光数码管显示横幅 (CREDIT / WIN / STATUS / BET) */
+.display-banner {
+    display: grid;
+    grid-template-columns: 180px 180px 1fr 140px;
+    gap: 12px;
+    background: #082124;
+    border: 4px solid #1c6d72;
+    border-radius: 10px;
+    padding: 10px 14px;
+    align-items: center;
+}
+
+.vfd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #020b0c;
+    border: 2px solid #14494c;
+    border-radius: 6px;
+    padding: 4px 8px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.vfd-label {
+    font-size: 11px;
+    color: #ff3344;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.vfd-digits {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.vfd-credit .vfd-digits {
+    color: var(--vfd-yellow);
+    text-shadow: 0 0 10px var(--vfd-yellow);
+}
+
+.vfd-win .vfd-digits {
+    color: var(--vfd-red);
+    text-shadow: 0 0 10px var(--vfd-red);
+}
+
+.vfd-bet .vfd-digits {
+    color: var(--vfd-yellow);
+    text-shadow: 0 0 10px var(--vfd-yellow);
+}
+
+.vfd-status {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: center;
+}
+
+.vfd-msg {
+    font-size: 16px;
+    font-weight: 900;
+    color: #00ffaa;
+    text-shadow: 0 0 8px #00ffaa;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* 街机实体按键控制台 */
+.arcade-console {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #1d696d, #0e3b3e);
+    border: 4px solid #124e52;
+    border-radius: 14px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.aux-group {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.console-btn {
+    width: 96px;
+    height: 70px;
+    border-radius: 12px;
+    border: 3px solid #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.5), 0 8px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.1s ease;
+    user-select: none;
+}
+
+.console-btn:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.console-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+    box-shadow: none;
+}
+
+.btn-name {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.btn-sub {
+    font-size: 10px;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+/* 各功能按键专属街机配色 */
+.btn-coin {
+    background: linear-gradient(to bottom, #f39c12, #d35400);
+    border-color: #ffd68a;
+}
+
+.btn-bet-1 {
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    border-color: #aed9f8;
+}
+
+.btn-max-bet {
+    background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+    border-color: #e3bbf2;
+}
+
+.btn-take {
+    background: linear-gradient(to bottom, #1abc9c, #16a085);
+    border-color: #bbf2e7;
+}
+
+.btn-double {
+    background: linear-gradient(to bottom, #e67e22, #d35400);
+    border-color: #fcd5b4;
+}
+
+.btn-spin {
+    width: 120px;
+    background: linear-gradient(to bottom, #e74c3c, #c0392b);
+    border-color: #ffa89f;
+    box-shadow: 0 6px 0 #7a1b10, 0 10px 18px rgba(231, 76, 60, 0.5);
+}
+
+.btn-spin:active:not(:disabled) {
+    box-shadow: 0 2px 0 #7a1b10;
+}
+
+.aux-btn {
+    background: #092c2f;
+    border: 1px solid #3ebbc0;
+    color: #d1f7f9;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.aux-btn:hover {
+    background: #14494d;
+}
+
+/* 模态弹窗 */
+.rules-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.rules-box {
+    background: #0c3336;
+    border: 4px solid #3ebbc0;
+    border-radius: 14px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.rules-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #154f53;
+    padding: 12px 18px;
+    border-bottom: 2px solid #3ebbc0;
+}
+
+.rules-header h3 {
+    color: #ffea00;
+    font-size: 18px;
+}
+
+.rules-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.rules-content {
+    padding: 18px;
+    max-height: 70vh;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e4fdff;
+}
+
+.rules-content h4 {
+    color: #ffd000;
+    margin: 12px 0 4px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 响应式微调 */
+@media (max-width: 820px) {
+    .game-board {
+        grid-template-columns: 1fr;
+    }
+    .left-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .display-banner {
+        grid-template-columns: 1fr 1fr;
+    }
+    .console-btn {
+        width: 80px;
+        height: 60px;
+    }
+    .btn-spin {
+        width: 100px;
+    }
+}
