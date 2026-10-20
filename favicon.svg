@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="honeyBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="100%" stop-color="#0f0701"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#honeyBg)" stroke="#f59e0b" stroke-width="2"/>
+  <!-- Crown on Top -->
+  <polygon points="20,24 24,14 32,20 40,14 44,24" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="24" cy="13" r="2" fill="#ef4444"/>
+  <circle cx="32" cy="19" r="2.5" fill="#3b82f6"/>
+  <circle cx="40" cy="13" r="2" fill="#ef4444"/>
+  <!-- Bee Body -->
+  <ellipse cx="32" cy="38" rx="11" ry="14" fill="#eab308"/>
+  <path d="M22 34 Q32 37 42 34" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+  <path d="M21 40 Q32 43 43 40" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+  <path d="M24 46 Q32 48 40 46" stroke="#1c1917" stroke-width="2" fill="none"/>
+  <polygon points="32,54 29,49 35,49" fill="#1c1917"/>
+  <!-- Wings -->
+  <ellipse cx="19" cy="30" rx="7" ry="11" transform="rotate(-30 19 30)" fill="rgba(255,255,255,0.7)" stroke="#67e8f9" stroke-width="1.2"/>
+  <ellipse cx="45" cy="30" rx="7" ry="11" transform="rotate(30 45 30)" fill="rgba(255,255,255,0.7)" stroke="#67e8f9" stroke-width="1.2"/>
+</svg>
